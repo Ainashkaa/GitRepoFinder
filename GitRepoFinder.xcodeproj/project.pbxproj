@@ -8,17 +8,23 @@
 
 /* Begin PBXBuildFile section */
 		450E5C652AF76B1500D9540A /* GitRepoFinderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 450E5C642AF76B1500D9540A /* GitRepoFinderApp.swift */; };
-		450E5C672AF76B1500D9540A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 450E5C662AF76B1500D9540A /* ContentView.swift */; };
+		450E5C672AF76B1500D9540A /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 450E5C662AF76B1500D9540A /* LoginView.swift */; };
 		450E5C692AF76B1900D9540A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 450E5C682AF76B1900D9540A /* Assets.xcassets */; };
 		450E5C6C2AF76B1900D9540A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 450E5C6B2AF76B1900D9540A /* Preview Assets.xcassets */; };
+		450E5C742AF76E8900D9540A /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 450E5C732AF76E8900D9540A /* AuthManager.swift */; };
+		450E5C762AF76E9700D9540A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 450E5C752AF76E9700D9540A /* Constants.swift */; };
+		450E5C792AF76F9700D9540A /* OAuthSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 450E5C782AF76F9700D9540A /* OAuthSwift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		450E5C612AF76B1500D9540A /* GitRepoFinder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GitRepoFinder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		450E5C642AF76B1500D9540A /* GitRepoFinderApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitRepoFinderApp.swift; sourceTree = "<group>"; };
-		450E5C662AF76B1500D9540A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		450E5C662AF76B1500D9540A /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		450E5C682AF76B1900D9540A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		450E5C6B2AF76B1900D9540A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		450E5C722AF76E5900D9540A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		450E5C732AF76E8900D9540A /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
+		450E5C752AF76E9700D9540A /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -26,6 +32,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				450E5C792AF76F9700D9540A /* OAuthSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -51,10 +58,13 @@
 		450E5C632AF76B1500D9540A /* GitRepoFinder */ = {
 			isa = PBXGroup;
 			children = (
+				450E5C722AF76E5900D9540A /* Info.plist */,
 				450E5C642AF76B1500D9540A /* GitRepoFinderApp.swift */,
-				450E5C662AF76B1500D9540A /* ContentView.swift */,
+				450E5C662AF76B1500D9540A /* LoginView.swift */,
 				450E5C682AF76B1900D9540A /* Assets.xcassets */,
 				450E5C6A2AF76B1900D9540A /* Preview Content */,
+				450E5C732AF76E8900D9540A /* AuthManager.swift */,
+				450E5C752AF76E9700D9540A /* Constants.swift */,
 			);
 			path = GitRepoFinder;
 			sourceTree = "<group>";
@@ -83,6 +93,9 @@
 			dependencies = (
 			);
 			name = GitRepoFinder;
+			packageProductDependencies = (
+				450E5C782AF76F9700D9540A /* OAuthSwift */,
+			);
 			productName = GitRepoFinder;
 			productReference = 450E5C612AF76B1500D9540A /* GitRepoFinder.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +124,9 @@
 				Base,
 			);
 			mainGroup = 450E5C582AF76B1500D9540A;
+			packageReferences = (
+				450E5C772AF76F9700D9540A /* XCRemoteSwiftPackageReference "OAuthSwift" */,
+			);
 			productRefGroup = 450E5C622AF76B1500D9540A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -137,8 +153,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				450E5C672AF76B1500D9540A /* ContentView.swift in Sources */,
+				450E5C672AF76B1500D9540A /* LoginView.swift in Sources */,
+				450E5C742AF76E8900D9540A /* AuthManager.swift in Sources */,
 				450E5C652AF76B1500D9540A /* GitRepoFinderApp.swift in Sources */,
+				450E5C762AF76E9700D9540A /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -275,6 +293,7 @@
 				DEVELOPMENT_TEAM = 9K6FF48SQA;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = GitRepoFinder/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -304,6 +323,7 @@
 				DEVELOPMENT_TEAM = 9K6FF48SQA;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = GitRepoFinder/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -344,6 +364,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		450E5C772AF76F9700D9540A /* XCRemoteSwiftPackageReference "OAuthSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/OAuthSwift/OAuthSwift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.2.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		450E5C782AF76F9700D9540A /* OAuthSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 450E5C772AF76F9700D9540A /* XCRemoteSwiftPackageReference "OAuthSwift" */;
+			productName = OAuthSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 450E5C592AF76B1500D9540A /* Project object */;
 }

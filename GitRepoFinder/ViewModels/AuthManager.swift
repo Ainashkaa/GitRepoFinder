@@ -20,7 +20,7 @@ class AuthManager: ObservableObject {
     private let accessTokenUrl = "https://github.com/login/oauth/access_token"
     private let responseType   = "code"
     
-    private let callbackUrl = URL(string: "com.ai.oauth://oauth-callback/github")!
+    private let callbackUrl = URL(string: "com.ai.myapp://callback")!
     
     init() {
         self.oauthswift = OAuth2Swift(
@@ -35,19 +35,24 @@ class AuthManager: ObservableObject {
         guard let oauthswift = self.oauthswift else { return }
         oauthswift.authorize(withCallbackURL: callbackUrl, scope: "read:user", state: generateState(withLength: 7)) {
             result in
+            print("hi6")
             switch result {
             case .success(let (credential, _, _)):
+                print("hi7")
                 // Save the credential oauth token as needed.
                 DispatchQueue.main.async{
+                    print("hi8")
                     completion(.success(credential.oauthToken))
                 }
             case .failure(let error):
                 DispatchQueue.main.async {
+                    print("hi9")
                     completion(.failure(error))
                 }
             }
         }
     }
+    
     private func generateState(withLength len: Int) -> String {
         let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
         return String((0..<len).map{ _ in letters.randomElement()! })

@@ -16,10 +16,11 @@ struct GitRepoFinderApp: App {
         WindowGroup {
             ContentView()
                 .environmentObject(loginViewModel)
-                .onOpenURL { url in
-                    print(url)
-                    OAuthSwift.handle(url: url)
-                }
+                .onOpenURL(perform: handleOpenURL)
         }
+    }
+    
+    private func handleOpenURL(_ url: URL) {
+        OAuthSwift.handle(url: url)
     }
 }

@@ -35,18 +35,14 @@ class AuthManager: ObservableObject {
         guard let oauthswift = self.oauthswift else { return }
         oauthswift.authorize(withCallbackURL: callbackUrl, scope: "read:user", state: generateState(withLength: 7)) {
             result in
-            print("hi6")
             switch result {
             case .success(let (credential, _, _)):
-                print("hi7")
                 // Save the credential oauth token as needed.
                 DispatchQueue.main.async{
-                    print("hi8")
                     completion(.success(credential.oauthToken))
                 }
             case .failure(let error):
                 DispatchQueue.main.async {
-                    print("hi9")
                     completion(.failure(error))
                 }
             }

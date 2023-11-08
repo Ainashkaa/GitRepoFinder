@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct RepositorySearchView: View {
+struct RepositoryListView: View {
     
-    @StateObject var viewModel = RepositorySearch()
+    @StateObject var viewModel = RepositorySearch(gitHubService: GitHubService())
     @State private var searchText = ""
     @State private var showingSortMenu = false
     @State private var selectedSortOption: SortOption = .none
@@ -75,5 +75,5 @@ struct RepositorySearchView: View {
 }
 
 #Preview {
-    RepositorySearchView()
+    RepositoryListView()
 }

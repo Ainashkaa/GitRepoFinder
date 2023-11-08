@@ -43,12 +43,15 @@ struct Repository: Codable, Identifiable, Equatable {
 
 
 extension Repository {
+    static let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        return formatter
+    }()
+    
     var formattedUpdateDate: String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-        
-        guard let date = dateFormatter.date(from: updatedDate) else {
+        Repository.dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+        guard let date = Repository.dateFormatter.date(from: updatedDate) else {
             return "Unknown date"
         }
         
@@ -57,17 +60,18 @@ extension Repository {
         let currentYear = calendar.component(.year, from: now)
         
         if let daysAgo = calendar.dateComponents([.day], from: date, to: now).day, daysAgo < 7 {
-            if daysAgo == 0 {
+            switch daysAgo {
+            case 0:
                 return "Updated today"
-            } else if daysAgo == 1 {
+            case 1:
                 return "Updated yesterday"
-            } else {
+            default:
                 return "Updated \(daysAgo) days ago"
             }
         } else {
             let updatedYear = calendar.component(.year, from: date)
-            dateFormatter.dateFormat = updatedYear == currentYear ? "MMM d" : "MMM d, yyyy"
-            return "Updated on \(dateFormatter.string(from: date))"
+            Repository.dateFormatter.dateFormat = updatedYear == currentYear ? "MMM d" : "MMM d, yyyy"
+            return "Updated on \(Repository.dateFormatter.string(from: date))"
         }
     }
 }
@@ -79,7 +83,7 @@ extension Repository {
         guard let data = try? encoder.encode(self) else { return nil }
         return String(data: data, encoding: .utf8)
     }
-
+    
     // Create Repository from JSON String
     static func from(jsonString: String) -> Repository? {
         let decoder = JSONDecoder()

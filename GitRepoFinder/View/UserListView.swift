@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct UserSearchView: View {
+struct UserListView: View {
     
-    @StateObject var viewModel = UserSearch()
+    @StateObject var viewModel = UserListViewModel(gitHubService: GitHubService())
     @State private var searchText = ""
     
     var body: some View {
@@ -18,16 +18,14 @@ struct UserSearchView: View {
                 ScrollView {
                     LazyVStack(spacing: 12) {
                         ForEach(viewModel.users) { user in
-                            UserRow(user: user, markAsViewed: {
-                                viewModel.markUserAsViewed(withId: user.id)
-                            })
+                            UserRow(user: user)
                             .onAppear {
                                 if user == viewModel.users.last {
                                     loadMoreContent()
                                 }
                             }
                         }
-                        if viewModel.isLoading {
+                        if viewModel.isLoadingPage {
                             ProgressView()
                         }
                     }
@@ -56,8 +54,6 @@ struct UserSearchView: View {
 
 struct UserRow: View {
     let user: User
-    var markAsViewed: () -> Void
-    
     
     var body: some View {
         VStack {
@@ -92,5 +88,5 @@ struct UserRow: View {
 }
 
 #Preview {
-    UserSearchView()
+    UserListView()
 }

@@ -14,7 +14,7 @@ struct MainTabView: View {
                 .tabItem {
                     Label("Repositories", systemImage: "list.bullet.rectangle")
                 }
-            UserSearchView()
+            UserListView()
                 .tabItem {
                     Label("Users", systemImage: "person.3.fill")
                 }

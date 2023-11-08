@@ -1,5 +1,5 @@
 //
-//  RepositoryRow.swift
+//  RepositoryView.swift
 //  GitRepoFinder
 //
 //  Created by Ainash Turbayeva on 06.11.2023.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct RepositoryRow: View {
+struct RepositoryView: View {
     
     let repository: Repository
     var markAsViewed: (() -> Void)?

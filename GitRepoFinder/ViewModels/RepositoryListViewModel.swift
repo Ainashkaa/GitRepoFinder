@@ -1,5 +1,5 @@
 //
-//  RepositorySearch.swift
+//  RepositoryListViewModel.swift
 //  GitRepoFinder
 //
 //  Created by Ainash Turbayeva on 05.11.2023.
@@ -7,12 +7,14 @@
 
 import Foundation
 
-class RepositorySearch: ObservableObject {
+class RepositoryListViewModel: ObservableObject {
     
     @Published var repositories: [Repository] = []
     @Published var isLoadingPage = false
+    
     private var currentPage = 1
     private var canLoadMorePages = true
+    
     private var gitHubService: GitHubService
     
     init(gitHubService: GitHubService) {
@@ -32,6 +34,7 @@ class RepositorySearch: ObservableObject {
         }
     }
     
+    @MainActor
     func searchRepositories(query: String, sortOption: SortOption? = nil, isNewSearch: Bool = true) async {
         guard !isLoadingPage && (isNewSearch || canLoadMorePages) else { return }
 

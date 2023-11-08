@@ -14,11 +14,11 @@ enum SortOption: String, CaseIterable, Identifiable {
     var displayName: String {
         switch self {
         case .stars:
-            return "Stars"
+            return "stars"
         case .forks:
-            return "Forks"
+            return "forks"
         case .updated:
-            return "Recently Updated"
+            return "updated"
         case .none:
             return "None"
         }

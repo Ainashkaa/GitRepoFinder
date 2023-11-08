@@ -8,19 +8,27 @@
 import SwiftUI
 
 struct RepositoryRow: View {
+    
     let repository: Repository
+    var markAsViewed: (() -> Void)?
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text(repository.fullName).font(.headline)
-                .font(.headline)
-                .foregroundColor(.primary)
+            Button(action: {
+                markAsViewed?() // This will mark the repository as viewed
+                if let url = URL(string: repository.htmlUrl) {
+                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                }
+            }) {
+                Text(repository.fullName)
+                    .font(.headline)
+                    .foregroundColor(repository.isViewed ? .gray : .blue)
+            }
             if let description = repository.description {
                 Text(description)
                     .font(.subheadline)
                     .foregroundColor(.secondary)
             }
-            
             HStack {
                 if let forksCount = repository.forksCount {
                     Label("\(forksCount)", systemImage: "tuningfork")
@@ -42,7 +50,7 @@ struct RepositoryRow: View {
         }
         .padding()
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(Color(.systemBackground))
+        .background(repository.isViewed ? Color.gray.opacity(0.2) : Color.white)
         .cornerRadius(10)
         .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 2)
         .overlay(

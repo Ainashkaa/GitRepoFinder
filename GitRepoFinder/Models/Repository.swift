@@ -16,6 +16,7 @@ struct Repository: Codable, Identifiable, Equatable {
     var starsCount: Int?
     var forksCount: Int?
     var isViewed: Bool = false
+    var htmlUrl: String
     
     enum CodingKeys: String, CodingKey {
         case id, name, description
@@ -23,6 +24,7 @@ struct Repository: Codable, Identifiable, Equatable {
         case updatedDate = "updated_at"
         case starsCount = "stargazers_count"
         case forksCount = "forks_count"
+        case htmlUrl = "html_url"
     }
     
     init(from decoder: Decoder) throws {
@@ -34,13 +36,11 @@ struct Repository: Codable, Identifiable, Equatable {
         self.updatedDate = try container.decode(String.self, forKey: .updatedDate)
         self.starsCount = try container.decodeIfPresent(Int.self, forKey: .starsCount) ?? 0
         self.forksCount = try container.decodeIfPresent(Int.self, forKey: .forksCount) ?? 0
+        self.htmlUrl = try container.decode(String.self, forKey: .htmlUrl)
     }
     
 }
 
-struct SearchResults: Codable {
-    var items: [Repository]
-}
 
 extension Repository {
     var formattedUpdateDate: String {
@@ -69,5 +69,22 @@ extension Repository {
             dateFormatter.dateFormat = updatedYear == currentYear ? "MMM d" : "MMM d, yyyy"
             return "Updated on \(dateFormatter.string(from: date))"
         }
+    }
+}
+
+extension Repository {
+    // Convert Repository to JSON String
+    func toJsonString() -> String? {
+        let encoder = JSONEncoder()
+        guard let data = try? encoder.encode(self) else { return nil }
+        return String(data: data, encoding: .utf8)
+    }
+
+    // Create Repository from JSON String
+    static func from(jsonString: String) -> Repository? {
+        let decoder = JSONDecoder()
+        guard let data = jsonString.data(using: .utf8),
+              let repository = try? decoder.decode(Repository.self, from: data) else { return nil }
+        return repository
     }
 }

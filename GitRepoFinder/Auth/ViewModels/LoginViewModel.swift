@@ -13,8 +13,7 @@ class LoginViewModel: ObservableObject {
     
     func login() {
         print("hi!")
-        AuthManager.shared.authorize { result in
-            print(result)
+        AuthManager.shared.authorize{ result in
             print("hi2")
             switch result {
             case .success(let token):

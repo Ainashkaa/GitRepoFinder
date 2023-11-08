@@ -1,5 +1,5 @@
 //
-//  SearchView.swift
+//  RepositorySearchView.swift
 //  GitRepoFinder
 //
 //  Created by Ainash Turbayeva on 05.11.2023.
@@ -7,12 +7,13 @@
 
 import SwiftUI
 
-struct SearchView: View {
+struct RepositorySearchView: View {
     
-    @StateObject var viewModel = SearchViewModel()
+    @StateObject var viewModel = RepositorySearch()
     @State private var searchText = ""
     @State private var showingSortMenu = false
     @State private var selectedSortOption: SortOption = .none
+    @State private var showHistory = false
     
     var body: some View {
         NavigationStack {
@@ -31,13 +32,15 @@ struct SearchView: View {
                 ScrollView {
                     LazyVStack(spacing: 12) {
                         ForEach(viewModel.repositories) { repository in
-                            RepositoryRow(repository: repository)
-                                .onAppear {
-                                    if repository == viewModel.repositories.last {
-                                        loadMoreContent()
-                                        print("\(repository.id)")
-                                    }
+                            RepositoryRow(repository: repository, markAsViewed: {
+                                viewModel.markRepositoryAsViewed(withId: repository.id)
+                            })
+                            .onAppear {
+                                if repository == viewModel.repositories.last {
+                                    loadMoreContent()
+                                    print("\(repository.id)")
                                 }
+                            }
                         }
                         if viewModel.isLoadingPage {
                             ProgressView()
@@ -72,5 +75,5 @@ struct SearchView: View {
 }
 
 #Preview {
-    SearchView()
+    RepositorySearchView()
 }

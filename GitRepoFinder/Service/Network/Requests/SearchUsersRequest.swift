@@ -21,12 +21,6 @@ struct SearchUsersRequest: GitHubRequest {
     var method: HTTPMethod {
         return .get
     }
-    
-    var headers: [String: String]? {
-        return [
-            "Accept": "application/vnd.github.text-match+json"
-        ]
-    }
 
     var queryItems: [URLQueryItem]? {
         var items = [URLQueryItem(name: "q", value: query)]

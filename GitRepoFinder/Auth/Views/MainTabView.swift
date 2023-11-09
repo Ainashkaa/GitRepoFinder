@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct MainTabView: View {
+    
+    @StateObject var historyViewModel = HistoryViewModel()
+    
     var body: some View {
         TabView {
             RepositoryListView()
@@ -19,7 +22,7 @@ struct MainTabView: View {
                     Label("Users", systemImage: "person.3.fill")
                 }
             
-            HistoryView()
+            HistoryView(historyViewModel: historyViewModel)
                 .tabItem {
                     Label("History", systemImage: "clock.fill")
                 }

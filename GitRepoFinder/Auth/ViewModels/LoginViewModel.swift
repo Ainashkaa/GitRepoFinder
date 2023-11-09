@@ -1,5 +1,5 @@
 //
-//  AppViewModel.swift
+//  LoginViewModel.swift
 //  GitRepoFinder
 //
 //  Created by Ainash Turbayeva on 05.11.2023.
@@ -10,17 +10,20 @@ import Foundation
 class LoginViewModel: ObservableObject {
     private var authManager = AuthManager()
     @Published var isLoggedIn = false
+    @Published var isAuthenticating = false
     
     func login() {
-        print("hi!")
+        self.isAuthenticating = true
         AuthManager.shared.authorize{ result in
-            print("hi2")
-            switch result {
-            case .success(let token):
-                self.isLoggedIn = true
-                print("OAuth token received: \(token)")
-            case .failure(let error):
-                print("OAuth authorization error: \(error.localizedDescription)")
+            DispatchQueue.main.async {
+                self.isAuthenticating = false
+                switch result {
+                case .success(let token):
+                    TokenManager.shared.storeToken(token: token)
+                    self.isLoggedIn = true
+                case .failure(let error):
+                    print("OAuth authorization error: \(error.localizedDescription)")
+                }
             }
         }
     }

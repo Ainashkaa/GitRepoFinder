@@ -11,6 +11,7 @@ struct UserListView: View {
     
     @StateObject var viewModel = UserListViewModel(gitHubService: GitHubService())
     @State private var searchText = ""
+    @State private var selectedUser: User?
     
     var body: some View {
         NavigationStack {
@@ -18,11 +19,8 @@ struct UserListView: View {
                 ScrollView {
                     LazyVStack(spacing: 12) {
                         ForEach(viewModel.users) { user in
-                            UserRow(user: user)
-                            .onAppear {
-                                if user == viewModel.users.last {
-                                    loadMoreContent()
-                                }
+                            NavigationLink(value: user) {
+                                UserView(user: user)
                             }
                         }
                         if viewModel.isLoadingPage {
@@ -42,6 +40,9 @@ struct UserListView: View {
                 }
             }
             .navigationTitle("GitHub Users")
+            .navigationDestination(for: User.self) { user in
+                UserRepositoryListView(user: user)
+            }
         }
     }
     
@@ -49,41 +50,6 @@ struct UserListView: View {
         Task {
             await viewModel.searchUsers(query: searchText, isNewSearch: false)
         }
-    }
-}
-
-struct UserRow: View {
-    let user: User
-    
-    var body: some View {
-        VStack {
-            HStack {
-                if let name = user.name {
-                    Text(name)
-                }
-                Text(user.login)
-            }
-            if let bio = user.bio {
-                Text(bio)
-            }
-            HStack {
-                if let location = user.location {
-                    Text(location)
-                }
-                if let followers = user.followers {
-                    Text("\(followers)")
-                }
-            }
-        }
-        .padding()
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .background(Color.white)
-        .cornerRadius(10)
-        .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 2)
-        .overlay(
-            RoundedRectangle(cornerRadius: 10)
-                .stroke(Color.gray.opacity(0.2), lineWidth: 1)
-        )
     }
 }
 

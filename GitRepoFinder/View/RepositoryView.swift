@@ -59,3 +59,7 @@ struct RepositoryView: View {
         )
     }
 }
+
+#Preview {
+    RepositoryView(repository: Repository.init(id: 16527928, name:  ".dotfiles", fullName:  "ain/.dotfiles", description:  "My various dotfiles.", starsCount: 99, forksCount: 10, updatedDate: "2023-03-22T21:55:56Z", isViewed: false, htmlUrl: "https://github.com/ain/.dotfiles"))
+}

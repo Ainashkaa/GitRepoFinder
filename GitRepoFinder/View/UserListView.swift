@@ -10,6 +10,7 @@ import SwiftUI
 struct UserListView: View {
     
     @StateObject var viewModel = UserListViewModel(gitHubService: GitHubService())
+    @StateObject var historyViewModel = HistoryViewModel()
     @State private var searchText = ""
     @State private var selectedUser: User?
     
@@ -22,6 +23,10 @@ struct UserListView: View {
                             NavigationLink(value: user) {
                                 UserView(user: user)
                             }
+                            .simultaneousGesture(TapGesture().onEnded {
+                                historyViewModel.userViewed(user)
+                                viewModel.selectUser(user)
+                            })
                         }
                         if viewModel.isLoadingPage {
                             ProgressView()

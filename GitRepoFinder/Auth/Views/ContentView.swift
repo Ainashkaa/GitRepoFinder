@@ -13,7 +13,12 @@ struct ContentView: View {
     
     var body: some View {
         Group {
-            if loginViewModel.isLoggedIn {
+            if loginViewModel.isAuthenticating {
+                ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle())
+                    .scaleEffect(1.5)
+            }
+            else if loginViewModel.isLoggedIn {
                 MainTabView()
             } else {
                 LoginView()

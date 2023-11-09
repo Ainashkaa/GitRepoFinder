@@ -22,14 +22,19 @@ extension GitHubRequest {
     var baseURL: URL {
         return URL(string: "https://api.github.com")!
     }
-
+    
     var headers: [String: String]? {
-        return ["Accept": "application/vnd.github.v3+json"]
+        var headers = ["Accept": "application/vnd.github.v3+json"]
+        if let token = TokenManager.shared.retrieveToken() {
+            headers["Authorization"] = "Bearer \(token)"
+        }
+        return headers
     }
-
+    
     func makeRequest() throws -> URLRequest {
         let url = baseURL.appendingPathComponent(path)
         var components = URLComponents(url: url, resolvingAgainstBaseURL: true)!
+        
         components.queryItems = queryItems
         
         var request = URLRequest(url: components.url!)

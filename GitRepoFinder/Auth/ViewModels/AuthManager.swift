@@ -20,7 +20,7 @@ class AuthManager: ObservableObject {
     private let accessTokenUrl = "https://github.com/login/oauth/access_token"
     private let responseType   = "code"
     
-    private let callbackUrl = URL(string: "com.ai.oauth://oauth-callback/github")!
+    private let callbackUrl = URL(string: "com.ai.myapp://callback")!
     
     init() {
         self.oauthswift = OAuth2Swift(
@@ -48,6 +48,7 @@ class AuthManager: ObservableObject {
             }
         }
     }
+    
     private func generateState(withLength len: Int) -> String {
         let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
         return String((0..<len).map{ _ in letters.randomElement()! })

@@ -6,12 +6,21 @@
 //
 
 import SwiftUI
+import OAuthSwift
 
 @main
 struct GitRepoFinderApp: App {
+    @StateObject var loginViewModel = LoginViewModel()
+    
     var body: some Scene {
         WindowGroup {
-            LoginView()
+            ContentView()
+                .environmentObject(loginViewModel)
+                .onOpenURL(perform: handleOpenURL)
         }
+    }
+    
+    private func handleOpenURL(_ url: URL) {
+        OAuthSwift.handle(url: url)
     }
 }

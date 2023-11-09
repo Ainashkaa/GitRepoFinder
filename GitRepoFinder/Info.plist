@@ -6,10 +6,10 @@
 	<array>
 		<dict>
 			<key>CFBundleTypeRole</key>
-			<string>Viewer</string>
+			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.ai.oauth</string>
+				<string>com.ai.myapp</string>
 			</array>
 		</dict>
 	</array>

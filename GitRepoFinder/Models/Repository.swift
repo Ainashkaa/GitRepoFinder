@@ -39,6 +39,18 @@ struct Repository: Codable, Identifiable, Equatable {
         self.htmlUrl = try container.decode(String.self, forKey: .htmlUrl)
     }
     
+    init(id: Int, name: String, fullName: String, description: String, starsCount: Int, forksCount: Int, updatedDate: String, isViewed: Bool, htmlUrl: String) {
+        self.id = id
+        self.name = name
+        self.fullName = fullName
+        self.description = description
+        self.starsCount = starsCount
+        self.forksCount = forksCount
+        self.updatedDate = updatedDate
+        self.isViewed = isViewed
+        self.htmlUrl = htmlUrl
+    }
+    
 }
 
 
@@ -73,22 +85,5 @@ extension Repository {
             Repository.dateFormatter.dateFormat = updatedYear == currentYear ? "MMM d" : "MMM d, yyyy"
             return "Updated on \(Repository.dateFormatter.string(from: date))"
         }
-    }
-}
-
-extension Repository {
-    // Convert Repository to JSON String
-    func toJsonString() -> String? {
-        let encoder = JSONEncoder()
-        guard let data = try? encoder.encode(self) else { return nil }
-        return String(data: data, encoding: .utf8)
-    }
-    
-    // Create Repository from JSON String
-    static func from(jsonString: String) -> Repository? {
-        let decoder = JSONDecoder()
-        guard let data = jsonString.data(using: .utf8),
-              let repository = try? decoder.decode(Repository.self, from: data) else { return nil }
-        return repository
     }
 }
